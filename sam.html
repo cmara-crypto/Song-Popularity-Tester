@@ -1,0 +1,512 @@
+<html>
+<head>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/mainpage.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+<style>
+body {
+background-color: #2C5F2Dff;
+ margin:0px auto;
+ padding:0px;
+ font-family:helvetica;
+ height:2000px;
+}
+h1
+{
+ text-align:center;
+ font-size:35px;
+ margin-top:60px;
+ color:#BEF781;
+}
+h1 p
+{
+ text-align:center;
+ margin:0px;
+ font-size:18px;
+ text-decoration:underline;
+ color:white;
+}
+#main_content
+{
+ margin-top:50px;
+ width:1500px;
+ margin-left:250px;
+}
+#main_content li
+{
+ display:inline;
+ list-style-type:none;
+ background-color:#688A08;
+ padding:10px;
+ border-radius:5px 5px 15px 0px;
+ color:#292A0A;
+ font-weight:bold;
+ cursor:pointer;
+}
+#main_content li.notselected
+{
+ background-color:#ABD6DFFF;
+ color:#292A0A;
+}
+#main_content li.selected
+{
+ background-color:#FFe77AFF;
+ color:#292A0A;
+}
+#main_content .hidden_desc
+{
+ display:none;
+ visibility:hidden;
+}
+#main_content #page_content
+{
+ background-color:#FFe77AFF;
+ padding:20px;
+ margin-top:9px;
+
+ color:#2E2E2E;
+ line-height: 1.6em;
+}
+
+.tab { margin-left: 40px; }
+
+
+
+
+
+body, html {
+  height: 100%;
+  font-family: "Inconsolata", sans-serif;
+}
+
+.bgimg {
+  background-position: center;
+  background-size: cover;
+  background-image:url('/static/img/spotify1.jpg.JPG');
+  min-height: 75%;
+}
+
+.menu {
+  display: none;
+}
+
+</style>
+
+<script>
+ function change_tab(id)
+ {
+   document.getElementById("page_content").innerHTML=document.getElementById(id+"_desc").innerHTML;
+   document.getElementById("page1").className="notselected";
+   document.getElementById("page2").className="notselected";
+   document.getElementById("page3").className="notselected";
+   document.getElementById("page4").className="notselected";
+   document.getElementById(id).className="selected";
+ }
+</script>
+</head>
+<body>
+
+<div id="main_content">
+
+ <li class="selected" id="page1" onclick="change_tab(this.id);">Home Page</li>
+ <li class="notselected" id="page2" onclick="change_tab(this.id);">Model</li>
+ <li class="notselected" id="page3" onclick="change_tab(this.id);">Source Code</li>
+<li class="notselected" id="page4" onclick="change_tab(this.id);">About</li>
+
+ <div class='hidden_desc' id="page1_desc">
+  <h2>Spotify</h2>
+  Hello this is Page 1 description and this is just a sample text .This is the demo of Multiple Tab In Single Page Using JavaScript and CSS.
+  Hello this is Page 1 description and this is just a sample text .This is the demo of Multiple Tab In Single Page Using JavaScript and CSS.
+  Hello this is Page 1 description and this is just a sample text .This is the demo of Multiple Tab In Single Page Using JavaScript and CSS.
+
+ </div>
+
+ <div class='hidden_desc' id="page2_desc">
+  <h2>Genetic Algorithm</h2>
+ <form action="{{ url_for('main') }}" method="POST">
+    <fieldset>
+        <legend>Input values for Popularity Prediction:</legend>
+
+        <br> Valence:
+        <input name="valence" required>
+        <br>
+
+        <br>  Duration (milliseconds):
+        <input name="duration_ms" required>
+        <br>
+
+        <br>  Explicitness:
+        <input name="explicit" required>
+        <br>
+
+
+        <br> Danceability:
+        <input name="danceability" required>
+        <br>
+
+        <br>  Energy:
+        <input name="energy" required>
+        <br>
+
+        <br>  Key:
+        <input name="key" required>
+        <br>
+
+
+        <br> Mode:
+        <input name="mode" required>
+        <br>
+
+        <br>  Speechiness:
+        <input name="speechiness" required>
+        <br>
+
+        <br>  Acousticness:
+        <input name="acousticness" required>
+        <br>
+
+        <br> Liveness:
+        <input name="liveness" required>
+        <br>
+
+		<br>  Tempo:
+        <input name="tempo" required>
+        <br>
+
+        <br>  Time Signature:
+        <input name="time_signature" required>
+        <br>
+	<br>
+
+         <input type="submit">
+    </fieldset>
+</form>
+<br>
+<div class="result" align="center">
+    {% if result %}
+        {% for variable, value in original_input.items() %}
+            <b>{{ variable }}</b> : {{ value }}
+        {% endfor %}
+        <br>
+        <br> The prediction is:
+           <p style="font-size:50px">{{ result }}</p>
+    {% endif %}
+</div>
+ </div>
+
+ <div class='hidden_desc' id="page3_desc">
+  <h2>Python Files</h2>
+
+  <p style = "font-weight:bold"> Spotify Data: Building the Model</p>
+    import numpy <br>
+	import pygad <br>
+	import pygad.nn <br>
+	import pygad.gann <br>
+	import pandas as pd <br>
+	import matplotlib.pyplot <br>
+	from sklearn import preprocessing <br>
+	from pandas import Series, DataFrame  <br> <br>
+
+	def fitness_func(solution, sol_idx): <br>
+	<a class="tab">global GANN_instance, data_inputs, data_outputs</a> <br>
+	<a class="tab">predictions = pygad.nn.predict(last_layer=GANN_instance.population_networks[sol_idx], data_inputs=data_inputs)</a> <br>
+	<a class="tab">l_comp = [i == j for i, j in zip(predictions, data_outputs)]</a> <br>
+	<a class="tab">solution_fitness = sum(l_comp)/len(data_outputs)*100</a> <br>
+	<a class="tab">return solution_fitness</a>
+	<br>
+	<br>
+
+	def callback_generation(ga_instance): <br>
+	<a class="tab">global GANN_instance, last_fitness</a> <br>
+	<a class="tab">population_matrices = pygad.gann.population_as_matrices(population_networks=GANN_instance.population_networks, population_vectors=ga_instance.population)</a> <br>
+	<a class="tab">GANN_instance.update_population_trained_weights(population_trained_weights=population_matrices)</a> <br>
+	<a class="tab">print("Generation = {generation}".format(generation=ga_instance.generations_completed))</a> <br>
+	<a class="tab">print("Fitness    = {fitness}".format(fitness=ga_instance.best_solution()[1]))</a> <br>
+	<a class="tab">print("Change     = {change}".format(change=ga_instance.best_solution()[1] - last_fitness)</a> <br>
+	<a class="tab">last_fitness = ga_instance.best_solution()[1].copy())</a> <br>
+	<br>
+
+	spotify = pd.read_csv('Documents/tracks.csv') <br>
+	<br>
+	spotify.loc[(spotify.popularity < 50), 'popularity'] = 0 <br>
+	spotify.loc[(spotify.popularity > 50), 'popularity'] = 1 <br>
+	spotify.loc[(spotify.popularity == 50), 'popularity'] = 1 <br>
+	<br>
+
+	spotify['valence'].fillna(spotify['valence'].median(), inplace=True)  <br>
+	spotify['duration_ms'].fillna(spotify['duration_ms'].median(), inplace=True)  <br>
+	spotify['explicit'].fillna(spotify['explicit'].median(), inplace=True)  <br>
+	spotify['danceability'].fillna(spotify['danceability'].median(), inplace=True)  <br>
+	spotify['energy'].fillna(spotify['energy'].median(), inplace=True)  <br>
+	spotify['key'].fillna(spotify['key'].median(), inplace=True)  <br>
+	spotify['mode'].fillna(spotify['mode'].median(), inplace=True)  <br>
+	spotify['speechiness'].fillna(spotify['speechiness'].median(), inplace=True)  <br>
+	spotify['acousticness'].fillna(spotify['acousticness'].median(), inplace=True)  <br>
+	spotify['liveness'].fillna(spotify['liveness'].median(), inplace=True)  <br>
+	spotify['tempo'].fillna(spotify['tempo'].median(), inplace=True)  <br>
+	spotify['time_signature'].fillna(spotify['time_signature'].median(), inplace=True)  <br>
+	spotify['popularity'].fillna(spotify['popularity'].median(), inplace=True)  <br>
+	<br>
+
+	data_inputs = spotify[['duration_ms', 'explicit', 'danceability', 'energy', 'key', 'mode', 'speechiness', 'acousticness', 'liveness', 'valence', 'tempo', 'time_signature']]
+	<br> data_inputs = data_inputs.to_numpy() <br> <br>
+
+	data_outputs = spotify['popularity'] <br>
+	data_outputs = data_outputs.tolist() <br> <br>
+
+	last_fitness = 0 <br>
+	num_inputs = data_inputs.shape[1] <br>
+	num_classes = 2 <br>
+	num_solutions = 6  <br> <br>
+
+	GANN_instance = pygad.gann.GANN(num_solutions=num_solutions,
+                                num_neurons_input=num_inputs,
+                                num_neurons_hidden_layers=[2],
+                                num_neurons_output=num_classes,
+                                hidden_activations=["relu"],
+                                output_activation="softmax") <br> <br>
+
+	population_vectors = pygad.gann.population_as_vectors(population_networks=GANN_instance.population_networks) <br>
+	initial_population = population_vectors.copy() <br>
+	num_parents_mating = 4 <br>
+	num_generations = 100  <br>
+	mutation_percent_genes = 5  <br>
+	parent_selection_type = "rws"  <br>
+	crossover_type = "single_point"  <br>
+	mutation_type = "random"  <br>
+	keep_parents = 1  <br> <br>
+
+	init_range_low = -2 <br>
+	init_range_high = 5 <br> <br>
+
+	ga_instance = pygad.GA(num_generations=num_generations,
+                       num_parents_mating=num_parents_mating,
+                       initial_population=initial_population,
+                       fitness_func=fitness_func,
+                       mutation_percent_genes=mutation_percent_genes,
+                       init_range_low=init_range_low,
+                       init_range_high=init_range_high,
+                       parent_selection_type=parent_selection_type,
+                       crossover_type=crossover_type,
+                       mutation_type=mutation_type,
+                       keep_parents=keep_parents,
+                       on_generation=callback_generation) <br> <br>
+	ga_instance.run() <br>
+	<br>
+	ga_instance.plot_result() <br> <br>
+
+	if ga_instance.best_solution_generation != -1: <br>
+	<a class="tab">print("Best fitness value reached after {best_solution_generation} generations.".format(best_solution_generation=ga_instance.best_solution_generation))</a> <br>
+	<br>
+	solution, solution_fitness, solution_idx = ga_instance.best_solution() <br>
+	<br>
+	predictions = pygad.nn.predict(last_layer=GANN_instance.population_networks[solution_idx],
+                               data_inputs=data_inputs)
+	<br> <br>
+	elast_layer = GANN_instance.population_networks[solution_idx]
+	<br> <r>
+	print("Classification accuracy : ", solution_fitness)
+	<br> <br>
+	import pickle <br>
+	pickle.dump(elast_layer, open('spotify_data.pkl','wb')) <br>
+	<br>
+
+	<p style = "font-weight:bold"> Spotify Data: Deploying the Model into Production</p>
+	import flask <br>
+	import pickle <br>
+	import numpy <br>
+	import pandas as pd <br> <br>
+
+	fn = 'C:/Users/hitat/anaconda3/model/spotify_data.pkl' <br>
+	model_instance = pickle.load(open(fn,'rb')) <br> <br>
+
+	app = flask.Flask(__name__, template_folder='pages') <br> <br>
+
+	@app.route('/', methods=['GET','POST']) <br> <br>
+	def main(): <br>
+	<a class="tab">if flask.request.method == 'GET':</a> <br>
+	<a class="tab">return (flask.render_template('sam.html')):</a> <br> <br>
+
+	 <a class="tab">if flask.request.method == 'POST': </a> <br>
+	     <a class="tab">valence = flask.request.form['valence']</a> <br>
+         <a class="tab">duration_ms = flask.request.form['duration_ms']</a> <br>
+         <a class="tab">explicit = flask.request.form['explicit']</a> <br>
+         <a class="tab">danceability = flask.request.form['danceability']</a> <br>
+         <a class="tab">energy = flask.request.form['energy']</a> <br>
+         <a class="tab">key = flask.request.form['key']</a> <br>
+         <a class="tab">mode = flask.request.form['mode']</a> <br>
+         <a class="tab">speechiness = flask.request.form['speechiness']</a> <br>
+         <a class="tab">acousticness = flask.request.form['acousticness']</a> <br>
+         <a class="tab">liveness = flask.request.form['liveness']</a> <br>
+        <a class="tab"> tempo = flask.request.form['tempo']</a> <br>
+         <a class="tab">time_signature = flask.request.form['time_signature']</a> <br> <br>
+
+         <a class="tab">a_inputs = numpy.array([[valence, duration_ms, explicit, danceability, energy, key, mode, speechiness, acousticness, liveness, tempo, time_signature]])</a> <br>
+         <a class="tab">a_inputs = a_inputs.astype(float)</a> <br> <br>
+
+        <a class="tab"> prediction = pygad.nn.predict(last_layer=model_instance, data_inputs=a_inputs) </a> <br>
+        <a class="tab"> prediction = str(prediction).strip('[]')  </a> <br> <br>
+
+		 <a class="tab">pred = '' </a> <br>
+        <a class="tab"> if int(prediction) == 0: </a> <br>
+             <a class="tab">pred = 'Flop' </a> <br>
+         <a class="tab">else:  </a> <br>
+             <a class="tab">pred = 'Bop' </a> <br> <br>
+
+         <a class="tab">return (flask.render_template('sam.html', original_input= {}, result=str(pred))) </a> <br>
+		 if __name__ == '__main__': <br>
+		 <a class="tab">  app.run() </a> <br>
+
+ </div>
+
+         <div class='hidden_desc' id="page4_desc">
+          <h2>Porgrammers123</h2>
+          Hello this is Page 4 description and this is just a sample text .This is the demo of Multiple Tab In Single Page Using JavaScript and CSS.
+          Hello this is Pdsaage 4 description and this is just a sample text .This is the demo of Multiple Tab In Single Page Using JavaScript and CSS.
+             <div class="wrapper">
+          <h2>Our Team</h2>
+          <div class="team">
+            <div class="team_member">
+              <div class="team_img">
+                <img src="{{ url_for('static',filename='img/team23.jpg') }}" alt="Team_image">
+              </div>
+              <h3>Audiolee Manansala</h3>
+              <p class="role">Author</p>
+              <p>Description.</p>
+            </div>
+            <div class="team_member">
+              <div class="team_img">
+                <img src="{{ url_for('static',filename='img/team22.jpg') }}" alt="Team_image">
+              </div>
+              <h3>Yuneza Claire Mortos</h3>
+              <p class="role">Author</p>
+              <p>Description.</p></div>
+            <div class="team_member">
+              <div class="team_img">
+                <img src="{{ url_for('static',filename='img/team21.jpg') }}" alt="Team_image">
+              </div>
+              <h3>Patrick Punzalan</h3>
+              <p class="role">Author</p>
+              <p>"Hi my name is Patrick Lester M. Punzalan. I'm a student of Technological Institute of the Philippines. I took up Computer Engineering Course as a career and major in DataScience."</p>
+            </div>
+          </div>
+
+
+
+         </div>
+         </div>
+
+
+
+ <div id="page_content" >
+
+  <h2>Page 1</h2>
+  Hello this is Page 1 description and this is just a sample text .This is the demo of Multiple Tab In Single Page Using JavaScript and CSS.
+  Hello this is Page 1 description and this is just a sample text .This is the demo of Multiple Tab In Single Page Using JavaScript and CSS.
+  Hello this is Page 1 description and this is just a sample text .This is the demo of Multiple Tab In Single Page Using JavaScript and CSS
+             <!-- About Container -->
+     <header class="bgimg w3-display-container w3-grayscale-min" id="home">
+  <div class="w3-display-bottomleft w3-center w3-padding-large w3-hide-small">
+  </div>
+  <div class="w3-display-middle w3-center">
+    <span class="w3-text-white" style="font-size:30px">A Machine Learning and Genetic Alogirthm approach in analyzing and<br>predicting popularity in Spotify</span>
+  </div>
+  <div class="w3-display-bottomright w3-center w3-padding-large">
+  </div>
+</header>
+     <!-- About Container -->
+<div class="w3-container" id="about">
+  <div class="w3-content" style="max-width:700px">
+    <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide " style="font-size:30px" >Introduction</span></h5>
+    <p> Description </p>
+    <p>Desecription.</p>
+
+  </div>
+</div>
+ <!-- Menu Container -->
+<div class="w3-container" id="menu">
+  <div class="w3-content" style="max-width:700px">
+
+    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">Guide on how to use this website</span></h5>
+
+    <div class="w3-row w3-center w3-card w3-padding">
+      <a href="javascript:void(0)" onclick="openMenu(event, 'Guide');" id="myLink">
+        <div class="w3-col s6 tablink">Guide</div>
+      </a>
+      <a href="javascript:void(0)" onclick="openMenu(event, 'guide1');">
+        <div class="w3-col s6 tablink">2nd Page</div>
+      </a>
+    </div>
+
+    <div id="Guide" class="w3-container menu w3-padding-48 w3-card">
+      <h5>Description here</h5>
+      <p class="w3-text-grey">statement</p><br>
+
+      <h5>Description here</h5>
+      <p class="w3-text-grey">statement</p><br>
+
+      <h5>Description here</h5>
+      <p class="w3-text-grey">statement</p><br>
+
+      <h5>Description here</h5>
+      <p class="w3-text-grey">statement</p><br>
+
+      <h5>Description here</h5>
+      <p class="w3-text-grey">statement</p><br>
+    </div>
+
+    <div id="guide1" class="w3-container menu w3-padding-48 w3-card">
+      <h5>Description here</h5>
+      <p class="w3-text-grey">statement</p><br>
+
+      <h5>Description here</h5>
+      <p class="w3-text-grey">statement</p><br>
+
+      <h5>Description here</h5>
+      <p class="w3-text-grey">statement</p><br>
+
+      <h5>Description here</h5>
+      <p class="w3-text-grey">statement</p><br>
+
+      <h5>Description here</h5>
+      <p class="w3-text-grey">statement</p><br>
+    </div>
+    </div>
+
+  </div>
+</div>
+
+
+ </div>
+             <footer>
+            <div class="footer-content">
+                <h3>Spotify Prediction</h3>
+                <p>Machine Learning and Genetic Alogirthm Approach</p>
+            </div>
+            <div class="footer-bottom">
+                <p>copyright &copy;2021 Spotify_Prediction.</p>
+            </div>
+        </footer>
+
+
+</div>
+<script>
+// Tabbed Menu
+function openMenu(evt, menuName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("menu");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" w3-dark-grey", "");
+  }
+  document.getElementById(menuName).style.display = "block";
+  evt.currentTarget.firstElementChild.className += " w3-dark-grey";
+}
+document.getElementById("myLink").click();
+</script>
+</body>
+</html>
